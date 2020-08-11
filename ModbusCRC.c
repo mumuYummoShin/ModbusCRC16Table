@@ -103,8 +103,8 @@ static uint16_t u16CrcCal(MbADU_t *pADU)
     CrcHi = CrcLo^(CRCtableMSB[idx]);
     CrcLo = CRCtableLSB[idx];
     //功能码
-  	idx = CrcHi^(pADU->Pdu.u8Func);
-  	CrcHi = CrcLo^(CRCtableMSB[idx]);
+    idx = CrcHi^(pADU->Pdu.u8Func);
+    CrcHi = CrcLo^(CRCtableMSB[idx]);
     CrcLo = CRCtableLSB[idx];
     //PDU域中Data
     for(i=0; i<(pADU->Pdu.u8DataLen); i++)
@@ -112,7 +112,7 @@ static uint16_t u16CrcCal(MbADU_t *pADU)
         idx = CrcHi^((pADU->Pdu.pu8Data)[i]);
         CrcHi = CrcLo^(CRCtableMSB[idx]);
         CrcLo = CRCtableLSB[idx];
-  	}
+    }
 
     CRC16 = (CrcHi<<8)+CrcLo;
 
