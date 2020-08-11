@@ -94,9 +94,9 @@ const uint8_t CRCtableLSB[]=
 static uint16_t u16CrcCal(MbADU_t *pADU)
 {
     uint8_t i = 0, idx = 0;
-	uint8_t CrcHi = 0xFF;		//CRC初值
-	uint8_t CrcLo = 0xFF;		//CRC初值
-	uint16_t CRC16;
+    int8_t CrcHi = 0xFF;		//CRC初值
+    uint8_t CrcLo = 0xFF;		//CRC初值
+    uint16_t CRC16;
 
     //地址字节
     idx = CrcHi^(pADU->u8Addr);
@@ -105,16 +105,16 @@ static uint16_t u16CrcCal(MbADU_t *pADU)
     //功能码
   	idx = CrcHi^(pADU->Pdu.u8Func);
   	CrcHi = CrcLo^(CRCtableMSB[idx]);
- 	 CrcLo = CRCtableLSB[idx];
-  	//PDU域中Data
-  	for(i=0; i<(pADU->Pdu.u8DataLen); i++)
- 	{
-    	idx = CrcHi^((pADU->Pdu.pu8Data)[i]);
-    	CrcHi = CrcLo^(CRCtableMSB[idx]);
-    	CrcLo = CRCtableLSB[idx];
+    CrcLo = CRCtableLSB[idx];
+    //PDU域中Data
+    for(i=0; i<(pADU->Pdu.u8DataLen); i++)
+    {
+        idx = CrcHi^((pADU->Pdu.pu8Data)[i]);
+        CrcHi = CrcLo^(CRCtableMSB[idx]);
+        CrcLo = CRCtableLSB[idx];
   	}
 
-	CRC16 = (CrcHi<<8)+CrcLo;
+    CRC16 = (CrcHi<<8)+CrcLo;
 
-	return CRC16;
+    return CRC16;
 }
