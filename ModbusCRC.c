@@ -113,7 +113,6 @@ static uint16_t u16CrcCal(MbADU_t *pADU)
         CrcHi = CrcLo^(CRCtableMSB[idx]);
         CrcLo = CRCtableLSB[idx];
     }
-	
 	//因为CRC table 是高低位互换的，
 	//故CrcHi对应ModbusCRC16低位，CrcLo对应ModbusCRC16高位
 	//返回对应modbusRTU格式的CRC16低位在前、高位在后
