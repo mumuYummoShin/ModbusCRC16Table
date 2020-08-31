@@ -94,8 +94,8 @@ const uint8_t CRCtableLSB[]=
 static uint16_t u16CrcCal(MbADU_t *pADU)
 {
     uint8_t i = 0, idx = 0;
-    int8_t CrcHi = 0xFF;		//CRC初值
-    uint8_t CrcLo = 0xFF;		//CRC初值
+    int8_t CrcHi = 0xFF;		//CRC初值，字节型算法名义上的高位
+    uint8_t CrcLo = 0xFF;		//CRC初值，字节型算法名义上的低位
     uint16_t CRC16;
 
     //地址字节
@@ -113,8 +113,11 @@ static uint16_t u16CrcCal(MbADU_t *pADU)
         CrcHi = CrcLo^(CRCtableMSB[idx]);
         CrcLo = CRCtableLSB[idx];
     }
-
-    CRC16 = (CrcHi<<8)+CrcLo;
+	
+	//因为CRC table 是高低位互换的，
+	//故CrcHi对应ModbusCRC16低位，CrcLo对应ModbusCRC16高位
+	//返回对应modbusRTU格式的CRC16低位在前、高位在后
+    CRC16 = (CrcHi<<8)+CrcLo; 
 
     return CRC16;
 }
