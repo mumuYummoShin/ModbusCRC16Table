@@ -93,7 +93,7 @@ const uint8_t CRCtableLSB[]=
 static uint16_t u16CrcCal(MbADU_t *pADU)
 {
     uint8_t i = 0, idx = 0;
-    int8_t CrcHi = 0xFF;		//CRC初值，字节型算法名义上的高位
+    uint8_t CrcHi = 0xFF;		//CRC初值，字节型算法名义上的高位
     uint8_t CrcLo = 0xFF;		//CRC初值，字节型算法名义上的低位
     uint16_t CRC16;
 
